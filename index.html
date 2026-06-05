@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Life Dashboard</title>
+  <!-- FOUC prevention: apply theme before first paint -->
+  <script>
+    (function() {
+      var t = localStorage.getItem('dashboard_theme');
+      if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      if (t === 'dark') document.documentElement.classList.add('dark');
+    })();
+  </script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="dashboard-header">
+    <h1 class="visually-hidden">Life Dashboard</h1>
+    <button id="theme-toggle" aria-label="Toggle light/dark theme">🌙</button>
+  </header>
+
+  <main class="dashboard-grid">
+
+    <!-- Greeting Widget -->
+    <section class="widget" aria-labelledby="greeting-heading">
+      <h2 id="greeting-heading" class="visually-hidden">Greeting</h2>
+      <div class="greeting-widget">
+        <p id="greeting-time" aria-live="polite" aria-label="Current time"></p>
+        <p id="greeting-date" aria-live="polite" aria-label="Current date"></p>
+        <p id="greeting-text" aria-live="polite" aria-label="Greeting message"></p>
+      </div>
+
+      <!-- User Name -->
+      <div class="username-section">
+        <label for="username-input" class="visually-hidden">Your name</label>
+        <input
+          type="text"
+          id="username-input"
+          maxlength="50"
+          placeholder="Enter your name"
+          aria-describedby="username-error"
+        />
+        <button id="username-submit" type="button">Save Name</button>
+        <p id="username-error" class="error-msg" role="alert" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- Focus Timer Widget -->
+    <section class="widget" aria-labelledby="timer-heading">
+      <h2 id="timer-heading">Focus Timer</h2>
+      <div class="timer-widget">
+        <p id="timer-display" aria-live="off" aria-label="Timer display">25:00</p>
+        <div class="timer-controls" role="group" aria-label="Timer controls">
+          <button id="timer-start" type="button">Start</button>
+          <button id="timer-stop" type="button" disabled>Stop</button>
+          <button id="timer-reset" type="button">Reset</button>
+        </div>
+        <p id="timer-alert" class="timer-alert" role="alert" aria-live="assertive"></p>
+      </div>
+    </section>
+
+    <!-- Task List Widget -->
+    <section class="widget" aria-labelledby="tasks-heading">
+      <h2 id="tasks-heading">Tasks</h2>
+      <div class="task-widget">
+        <div class="task-input-row">
+          <label for="task-input" class="visually-hidden">New task title</label>
+          <input
+            type="text"
+            id="task-input"
+            placeholder="Add a new task…"
+            aria-describedby="task-error"
+          />
+          <button id="task-submit" type="button">Add</button>
+        </div>
+        <div class="task-sort-row">
+          <label for="task-sort" class="visually-hidden">Sort tasks by</label>
+          <select id="task-sort" aria-label="Sort tasks">
+            <option value="default">Default (creation order)</option>
+            <option value="alpha">Alphabetical (A–Z)</option>
+            <option value="status">Status (incomplete first)</option>
+          </select>
+        </div>
+        <p id="task-error" class="error-msg" role="alert" aria-live="polite"></p>
+        <ul id="task-list" aria-label="Task list" aria-live="polite"></ul>
+      </div>
+    </section>
+
+    <!-- Quick Links Widget -->
+    <section class="widget" aria-labelledby="links-heading">
+      <h2 id="links-heading">Quick Links</h2>
+      <div class="links-widget">
+        <form id="links-form" novalidate aria-describedby="links-error links-limit-msg">
+          <label for="links-label">Label</label>
+          <input
+            type="text"
+            id="links-label"
+            maxlength="50"
+            placeholder="e.g. GitHub"
+            aria-describedby="links-error"
+          />
+          <label for="links-url">URL</label>
+          <input
+            type="url"
+            id="links-url"
+            maxlength="2048"
+            placeholder="e.g. https://github.com"
+            aria-describedby="links-error"
+          />
+          <button type="submit">Add Link</button>
+        </form>
+        <p id="links-error" class="error-msg" role="alert" aria-live="polite"></p>
+        <p id="links-limit-msg" class="limit-msg" aria-live="polite" hidden>Maximum 20 links reached</p>
+        <div id="links-list" aria-label="Quick links" role="list"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

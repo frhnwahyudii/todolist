@@ -1,0 +1,567 @@
+/* css/style.css — Life Dashboard */
+
+/* ============================================================
+   1. CSS Custom Properties — Light palette (default)
+   ============================================================ */
+:root {
+  --bg:           #f5f5f5;
+  --surface:      #ffffff;
+  --text:         #1a1a1a;
+  --text-muted:   #555555;
+  --border:       #e0e0e0;
+  --accent:       #4a6cf7;
+  --accent-hover: #3a5ce5;
+  --error:        #c0392b;
+
+  --radius:       8px;
+  --shadow:       0 2px 8px rgba(0, 0, 0, 0.08);
+  --gap:          1rem;
+}
+
+/* ============================================================
+   2. Dark palette — overrides on html.dark
+   ============================================================ */
+html.dark {
+  --bg:           #0f0f0f;
+  --surface:      #1e1e1e;
+  --text:         #f0f0f0;
+  --text-muted:   #a0a0a0;
+  --border:       #333333;
+  --accent:       #6b8cff;
+  --accent-hover: #8aa3ff;
+  --error:        #e74c3c;
+}
+
+/* ============================================================
+   3. Reset & base
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  color: var(--text);
+  background-color: var(--bg);
+  min-height: 100vh;
+  padding: var(--gap);
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   4. Responsive grid layout
+   ============================================================ */
+
+/* Single column — 320px and up (mobile-first) */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* 2-column — 768px and up */
+@media (min-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 3-column — 1200px and up */
+@media (min-width: 1200px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ============================================================
+   5. Dashboard header
+   ============================================================ */
+.dashboard-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem var(--gap);
+  margin-bottom: var(--gap);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* Theme toggle icon button */
+#theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.375rem 0.5rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--text);
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+#theme-toggle:hover,
+#theme-toggle:focus-visible {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+  outline: none;
+}
+
+/* ============================================================
+   6. Widget cards
+   ============================================================ */
+.widget {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+  min-width: 0; /* prevent grid blowout */
+}
+
+.widget h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+/* ============================================================
+   7. Greeting widget
+   ============================================================ */
+#greeting-time {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+
+#greeting-date {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+#greeting-text {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+/* Username section */
+.username-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.75rem;
+}
+
+.username-section input[type="text"] {
+  flex: 1 1 140px;
+  padding: 0.375rem 0.625rem;
+  font-size: 0.875rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--bg);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.username-section input[type="text"]:focus {
+  border-color: var(--accent);
+}
+
+/* ============================================================
+   8. Timer widget
+   ============================================================ */
+#timer-display {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+.timer-controls {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+
+#timer-alert {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-align: center;
+  min-height: 1.25em;
+}
+
+/* ============================================================
+   9. Task list widget
+   ============================================================ */
+.task-input-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.task-input-row input[type="text"] {
+  flex: 1 1 auto;
+  padding: 0.375rem 0.625rem;
+  font-size: 0.875rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--bg);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.task-input-row input[type="text"]:focus {
+  border-color: var(--accent);
+}
+
+.task-sort-row {
+  margin-bottom: 0.5rem;
+}
+
+.task-sort-row select {
+  padding: 0.375rem 0.5rem;
+  font-size: 0.875rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+  outline: none;
+  max-width: 100%;
+}
+
+.task-sort-row select:focus {
+  border-color: var(--accent);
+}
+
+#task-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  margin-top: 0.5rem;
+}
+
+#task-list li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--bg);
+}
+
+.task-title {
+  flex-grow: 1;
+  font-size: 0.9rem;
+  color: var(--text);
+  word-break: break-word;
+}
+
+/* Completed task — reinforce inline style set by TaskModule */
+.task-title.completed,
+[data-completed="true"] .task-title {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.task-edit-input {
+  width: 100%;
+  flex: 1 1 auto;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background-color: var(--bg);
+  color: var(--text);
+  outline: none;
+}
+
+/* ============================================================
+   10. Quick links widget
+   ============================================================ */
+#links-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  margin-bottom: 0.75rem;
+}
+
+#links-form label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+#links-form input[type="text"],
+#links-form input[type="url"] {
+  padding: 0.375rem 0.625rem;
+  font-size: 0.875rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--bg);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+#links-form input[type="text"]:focus,
+#links-form input[type="url"]:focus {
+  border-color: var(--accent);
+}
+
+#links-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+/* Link item wrapper */
+#links-list > div,
+.link-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Link button */
+#links-list a,
+.link-btn {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #ffffff;
+  background-color: var(--accent);
+  border: none;
+  border-radius: var(--radius);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#links-list a:hover,
+#links-list a:focus-visible,
+.link-btn:hover,
+.link-btn:focus-visible {
+  background-color: var(--accent-hover);
+  outline: none;
+}
+
+/* Delete button for links — small */
+.link-delete,
+[data-action="delete-link"] {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.375rem;
+  background-color: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  cursor: pointer;
+  line-height: 1;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.link-delete:hover,
+[data-action="delete-link"]:hover {
+  background-color: var(--error);
+  border-color: var(--error);
+  color: #ffffff;
+}
+
+/* ============================================================
+   11. Shared button styles
+   ============================================================ */
+button {
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.875rem;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  transition: background-color 0.2s, border-color 0.2s, opacity 0.2s;
+}
+
+/* Primary action button (used by add/submit/save controls) */
+#task-submit,
+#username-submit,
+#links-form button[type="submit"],
+#timer-start,
+#timer-reset {
+  padding: 0.375rem 0.75rem;
+  background-color: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+#task-submit:hover,
+#username-submit:hover,
+#links-form button[type="submit"]:hover,
+#timer-start:hover,
+#timer-reset:hover {
+  background-color: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+/* Stop button */
+#timer-stop {
+  padding: 0.375rem 0.75rem;
+  background-color: transparent;
+  color: var(--text);
+  border-color: var(--border);
+  font-weight: 600;
+}
+
+#timer-stop:hover:not(:disabled) {
+  background-color: var(--border);
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Inline edit confirm / cancel buttons */
+[data-action="confirm-edit"],
+[data-action="cancel-edit"] {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+}
+
+[data-action="confirm-edit"] {
+  background-color: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+
+[data-action="cancel-edit"] {
+  background-color: transparent;
+  color: var(--text-muted);
+  border-color: var(--border);
+}
+
+/* Task-level action buttons (edit, delete) */
+[data-action="edit"],
+[data-action="delete"] {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  background-color: transparent;
+  color: var(--text-muted);
+  border-color: var(--border);
+}
+
+[data-action="delete"]:hover {
+  background-color: var(--error);
+  border-color: var(--error);
+  color: #ffffff;
+}
+
+[data-action="edit"]:hover {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+
+/* ============================================================
+   12. Error & limit messages
+   ============================================================ */
+.error-msg {
+  font-size: 0.8rem;
+  color: var(--error);
+  margin-top: 0.25rem;
+  min-height: 1em;
+}
+
+.limit-msg {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.error-msg:empty,
+.limit-msg[hidden] {
+  display: none;
+}
+
+/* ============================================================
+   13. Accessibility — visually hidden utility
+   ============================================================ */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============================================================
+   14. Focus ring — ensure visible keyboard navigation
+   ============================================================ */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   15. Overflow guard — prevent horizontal scroll at all widths
+   ============================================================ */
+img,
+video,
+iframe,
+table {
+  max-width: 100%;
+}

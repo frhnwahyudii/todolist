@@ -1,0 +1,13 @@
+{
+  "name": "todo-life-dashboard",
+  "version": "1.0.0",
+  "description": "A zero-dependency static single-page life dashboard",
+  "type": "module",
+  "scripts": {
+    "test": "vitest --run"
+  },
+  "devDependencies": {
+    "fast-check": "^3.23.2",
+    "vitest": "^3.2.6"
+  }
+}
